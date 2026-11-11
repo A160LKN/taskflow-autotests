@@ -1,0 +1,61 @@
+name: UI tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 3 * * *"   # каждый день в 03:00 UTC (08:00 по Астане)
+  workflow_dispatch:       # кнопка «Run workflow» для ручного запуска
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Скачать код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Установить зависимости
+        run: pip install -r requirements.txt
+
+      - name: Запустить тесты
+        env:
+          HEADLESS: "1"
+        run: pytest
+
+      - name: Собрать Allure-отчёт
+        if: always()   # отчёт нужен и тогда, когда тесты упали
+        run: npx --yes allure-commandline@2 generate allure-results --clean -o allure-report
+
+      - name: Подготовить отчёт к публикации
+        if: always() && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: allure-report
+
+  report:
+    needs: test
+    if: always() && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Опубликовать отчёт на GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

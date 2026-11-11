@@ -1,8 +1,12 @@
 # TaskFlow Autotests
 
+[![UI tests](https://github.com/A160LKN/taskflow-autotests/actions/workflows/tests.yml/badge.svg)](https://github.com/A160LKN/taskflow-autotests/actions/workflows/tests.yml)
+
 UI-автотесты для моего приложения [TaskFlow](https://github.com/A160LKN/TaskFlow) — трекера задач на HTML, CSS и JavaScript.
 
 **Тестируемое приложение:** https://a160lkn.github.io/TaskFlow/
+
+**Allure-отчёт последнего прогона:** https://a160lkn.github.io/taskflow-autotests/
 
 ## Стек
 
@@ -40,7 +44,8 @@ UI-автотесты для моего приложения [TaskFlow](https://
 - **явные ожидания** вместо `time.sleep`;
 - каждый тест запускается в чистом браузере — тесты не зависят друг от друга;
 - **Allure-отчёт** с шагами и скриншотом при падении;
-- запуск без окна браузера (headless) для серверов и CI.
+- запуск без окна браузера (headless) для серверов и CI;
+- **CI на GitHub Actions**: тесты запускаются при каждом изменении и раз в день по расписанию, Allure-отчёт публикуется на GitHub Pages.
 
 ## Структура
 
