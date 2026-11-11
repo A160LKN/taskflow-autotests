@@ -88,7 +88,9 @@ class TaskFlowPage(BasePage):
 
     @allure.step("Получить приоритет задачи №{index}")
     def get_priority_badge(self, index):
-        return self._task(index).find_element(*testid("task-priority-badge")).text
+        # textContent по той же причине, что и в get_task_titles: анимация появления
+        badge = self._task(index).find_element(*testid("task-priority-badge"))
+        return badge.get_attribute("textContent")
 
     @allure.step("Отметить задачу №{index}")
     def toggle_task(self, index):
