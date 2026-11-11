@@ -1,6 +1,6 @@
 # TaskFlow Autotests
 
-[![UI tests](https://github.com/A160LKN/taskflow-autotests/actions/workflows/tests.yml/badge.svg)](https://github.com/A160LKN/taskflow-autotests/actions/workflows/tests.yml)
+[![UI tests](https://github.com/A160LKN/taskflow-autotests/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/A160LKN/taskflow-autotests/actions/workflows/tests.yml)
 
 UI-автотесты для моего приложения [TaskFlow](https://github.com/A160LKN/TaskFlow) — трекера задач на HTML, CSS и JavaScript.
 
